@@ -172,6 +172,56 @@ Most SATA drives use:
 - Ensure files are specified in chronological order
 - Check timestamps in smartctl output
 
+## Development
+
+### Running Unit Tests
+
+The project uses [pytest](https://docs.pytest.org/) for testing. Install it into the virtual environment if not already present:
+
+```bash
+.venv/bin/pip install pytest
+```
+
+Run all tests:
+
+```bash
+.venv/bin/python -m pytest -v
+```
+
+Run a specific test file:
+
+```bash
+.venv/bin/python -m pytest test_smart_parser.py -v
+```
+
+### Code Coverage
+
+Install the coverage plugin:
+
+```bash
+.venv/bin/pip install pytest-cov
+```
+
+Generate a coverage report:
+
+```bash
+.venv/bin/python -m pytest --cov=. --cov-report=term-missing
+```
+
+To produce an HTML coverage report:
+
+```bash
+.venv/bin/python -m pytest --cov=. --cov-report=html
+open htmlcov/index.html
+```
+
+### Linting
+
+```bash
+.venv/bin/pip install pylint
+.venv/bin/python -m pylint smart_parser.py endurance_calculator.py formatters.py ssd_analyzer.py
+```
+
 ## License
 
 MIT License - feel free to use and modify as needed.
