@@ -128,16 +128,21 @@ def _parse_timestamp(content: str, data: SmartData) -> None:
         r'Local Time is:\s+(.+?)(?:\n|$)', content)
     if timestamp_match:
         time_str = timestamp_match.group(1).strip()
-        for fmt in ['%a %b %d %H:%M:%S %Y %Z',
-                     '%a %b %d %H:%M:%S %Y',
-                     '%Y-%m-%d %H:%M:%S',
-                     '%c']:
-            try:
-                data.timestamp = datetime.strptime(
-                    time_str.strip(), fmt)
+        # Remove timezone for fallback, as strptime may reject non-local timezones (like EST on UTC CI)
+        time_str_no_tz = re.sub(r'\s+[A-Z]{3,5}$', '', time_str).strip()
+        
+        for ts_str in [time_str, time_str_no_tz]:
+            for fmt in ['%a %b %d %H:%M:%S %Y %Z',
+                         '%a %b %d %H:%M:%S %Y',
+                         '%Y-%m-%d %H:%M:%S',
+                         '%c']:
+                try:
+                    data.timestamp = datetime.strptime(ts_str, fmt)
+                    break
+                except ValueError:
+                    continue
+            if data.timestamp is not None:
                 break
-            except ValueError:
-                continue
 
 
 def _parse_capacity(content: str, data: SmartData) -> None:
