@@ -128,9 +128,10 @@ def _parse_timestamp(content: str, data: SmartData) -> None:
         r'Local Time is:\s+(.+?)(?:\n|$)', content)
     if timestamp_match:
         time_str = timestamp_match.group(1).strip()
-        # Remove timezone for fallback, as strptime may reject non-local timezones (like EST on UTC CI)
+        # Remove timezone for fallback, as strptime may reject
+        # non-local timezones (like EST on UTC CI)
         time_str_no_tz = re.sub(r'\s+[A-Z]{3,5}$', '', time_str).strip()
-        
+
         for ts_str in [time_str, time_str_no_tz]:
             for fmt in ['%a %b %d %H:%M:%S %Y %Z',
                          '%a %b %d %H:%M:%S %Y',
