@@ -87,7 +87,7 @@ class EnduranceCalculator:  # pylint: disable=too-few-public-methods
             capacity_gb=capacity_gb,
         )
 
-    def calculate(  # pylint: disable=too-many-arguments
+    def calculate(  # pylint: disable=too-many-arguments,too-many-positional-arguments
         self,
         snapshot1_data_units_written: int,
         snapshot2_data_units_written: int,

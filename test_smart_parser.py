@@ -60,7 +60,7 @@ def _write_temp_file(content: str) -> str:
     return path
 
 
-def _make_nvme(  # pylint: disable=too-many-arguments
+def _make_nvme(  # pylint: disable=too-many-arguments,too-many-positional-arguments
     timestamp="Mon Jan 01 10:00:00 2026 EST",
     units_written="50,000,000",
     units_read="45,232,156",

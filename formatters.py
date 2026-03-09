@@ -78,7 +78,7 @@ def create_ascii_table(headers: List[str],
     return "\n".join(table)
 
 
-def format_analysis_report(  # pylint: disable=too-many-arguments
+def format_analysis_report(  # pylint: disable=too-many-arguments,too-many-positional-arguments
     snapshot1: SmartData,
     snapshot2: SmartData,
     metrics: EnduranceMetrics,
