@@ -1,0 +1,14 @@
+[SIMILARITIES]
+# Minimum lines number of a similarity.
+min-similarity-lines=10
+# Ignore imports when computing similarities.
+ignore-imports=yes
+# Ignore function signatures when computing similarities.
+ignore-signatures=yes
+
+[MESSAGES CONTROL]
+# R0801 (duplicate-code) is disabled because ssd_analyzer.py and
+# ssd_analyzer_daemon.py intentionally share similar call patterns
+# against the same library API. Suppressing inline is not supported
+# for this check; project-level configuration is the correct approach.
+disable=duplicate-code
