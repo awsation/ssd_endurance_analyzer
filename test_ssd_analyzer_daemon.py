@@ -1,15 +1,12 @@
 """
 Unit tests for ssd_analyzer_daemon.py
 """
-import pytest
 import os
-import shutil
 import subprocess
 import time
-from pathlib import Path
 from unittest.mock import patch, MagicMock
 
-import ssd_analyzer_daemon
+import pytest
 from ssd_analyzer_daemon import rotate_reports, run_smartctl, main
 
 def test_rotate_reports_less_than_keep(tmp_path):
@@ -79,7 +76,7 @@ def test_main_first_run(mock_format, mock_calc, mock_parser, mock_run_smartctl, 
         mock_args.return_value = args
 
         mock_run_smartctl.return_value = "fake smart data"
-        
+
         # When state_file is missing, it exits 0
         with pytest.raises(SystemExit) as exc:
             main()
@@ -114,7 +111,7 @@ def test_main_second_run(mock_format, mock_calc, mock_parser, mock_run_smartctl,
         state_file.write_text("old smart data")
 
         mock_run_smartctl.return_value = "new smart data"
-        
+
         parser_inst = mock_parser.return_value
         snap1 = MagicMock()
         snap1.data_units_written = 100
