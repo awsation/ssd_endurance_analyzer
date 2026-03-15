@@ -1,0 +1,11 @@
+[Unit]
+Description=Run SSD Endurance Analyzer Weekly
+
+[Timer]
+# Run weekly on Sunday at midnight
+OnCalendar=weekly
+Persistent=true
+RandomizedDelaySec=1h
+
+[Install]
+WantedBy=timers.target

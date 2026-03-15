@@ -126,6 +126,38 @@ WEAR AND LIFETIME ANALYSIS
 +---------------------+-----------------------+----------------+
 ```
 
+## Running as a Background Daemon
+
+The SSD Endurance Analyzer includes a background daemon service (`ssd_analyzer_daemon.py`) designed to run automatically via systemd. It captures weekly snapshots, calculates wear, and maintains the last two reports.
+
+### Installation Instructions
+
+1. **Install the Executable Script**
+   Copy the python daemon script to a global bin directory:
+   ```bash
+   sudo cp ssd_analyzer_daemon.py /usr/local/bin/
+   sudo chmod +x /usr/local/bin/ssd_analyzer_daemon.py
+   ```
+
+2. **Configure the Service File**
+   Modify the `systemd/ssd-endurance-analyzer.service` file to accurately match your SSD parameters (device, host-lba-size, etc.).
+
+3. **Install the Systemd Unit Files**
+   Copy the service and timer files to the systemd directory:
+   ```bash
+   sudo cp systemd/ssd-endurance-analyzer.service /etc/systemd/system/
+   sudo cp systemd/ssd-endurance-analyzer.timer /etc/systemd/system/
+   ```
+
+4. **Reload and Enable**
+   Reload systemd and enable the timer:
+   ```bash
+   sudo systemctl daemon-reload
+   sudo systemctl enable --now ssd-endurance-analyzer.timer
+   ```
+
+*Logs are stored in `/var/log/ssd-analyzer/` and the state file is kept in `/var/lib/ssd-analyzer/`.*
+
 ## Metrics Explained
 
 ### WAF (Write Amplification Factor)
