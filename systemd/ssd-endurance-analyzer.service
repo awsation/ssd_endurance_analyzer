@@ -1,0 +1,21 @@
+[Unit]
+Description=SSD Endurance Analyzer Daemon
+After=network.target
+
+[Service]
+Type=oneshot
+# Adjust the ExecStart arguments to match your configuration. Keep the --device,
+# --host-lba-size, --flash-lba-size, and --rated-pe-cycles.
+ExecStart=/usr/local/bin/ssd_analyzer_daemon.py --device /dev/nvme0n1 --host-lba-size 0.5 --flash-lba-size 32 --rated-pe-cycles 3000 --capacity 512
+Restart=on-failure
+RestartSec=60
+User=root
+Group=root
+
+# Security constraints
+ProtectSystem=full
+ProtectHome=read-only
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target
